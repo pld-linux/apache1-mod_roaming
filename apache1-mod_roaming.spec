@@ -1,3 +1,6 @@
+# TODO
+# - mod_roaming.conf points to htpasswd file in /var, shouldn't it be in /etc
+#   (and don't forget trigger to move old possibly existing htpasswd in /var when fixing it)
 %define		mod_name	roaming
 %define 	apxs		/usr/sbin/apxs1
 Summary:	Enables Netscape Communicator roaming profiles with Apache
@@ -14,7 +17,7 @@ Summary(sk):	WWW prehliadaè Netscape Navigator
 Summary(sv):	Möjliggör Netscape Communicator reseprofiler med Apache
 Name:		apache1-mod_%{mod_name}
 Version:	1.0.2
-Release:	1
+Release:	1.3
 License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://www.klomp.org/mod_roaming/mod_%{mod_name}-%{version}.tar.gz
@@ -22,15 +25,16 @@ Source0:	http://www.klomp.org/mod_roaming/mod_%{mod_name}-%{version}.tar.gz
 Source1:	%{name}.conf
 URL:		http://www.klomp.org/mod_roaming/
 BuildRequires:	%{apxs}
-BuildRequires:	apache1-devel
-Requires(post,preun):	%{apxs}
-Requires(post,preun):	grep
-Requires(preun):	fileutils
-Requires:	apache1
+BuildRequires:	apache1-devel >= 1.3.33-2
+Requires(triggerpostun):	%{apxs}
+Requires(triggerpostun):	grep
+Requires(triggerpostun):	sed >= 4.0
+Requires:	apache1 >= 1.3.33-2
 Obsoletes:	apache-mod_roaming <= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_pkglibdir	%(%{apxs} -q LIBEXECDIR)
+%define		_pkglibdir	%(%{apxs} -q LIBEXECDIR 2>/dev/null)
+%define		_sysconfdir	%(%{apxs} -q SYSCONFDIR 2>/dev/null)
 
 %description
 With mod_roaming you can use your Apache web server as a Netscape
@@ -117,38 +121,45 @@ Netscape Communicator 4.5 som kan komma åt servern.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/apache,%{_var}/lib/mod_roaming}
+install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/conf.d,%{_var}/lib/mod_roaming}
 
 install mod_%{mod_name}.so $RPM_BUILD_ROOT%{_pkglibdir}
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache/mod_roaming.conf
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/conf.d/90_mod_%{mod_name}.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%{apxs} -e -a -n %{mod_name} %{_pkglibdir}/mod_%{mod_name}.so 1>&2
-if [ -f /etc/apache/apache.conf ] && ! grep -q "^Include.*mod_%{mod_name}.conf" /etc/apache/apache.conf; then
-	echo "Include /etc/apache/mod_%{mod_name}.conf" >> /etc/apache/apache.conf
-fi
 if [ -f /var/lock/subsys/apache ]; then
 	/etc/rc.d/init.d/apache restart 1>&2
 fi
 
 %preun
 if [ "$1" = "0" ]; then
-	%{apxs} -e -A -n %{mod_name} %{_pkglibdir}/mod_%{mod_name}.so 1>&2
-	umask 027
-	grep -v "^Include.*mod_%{mod_name}.conf" /etc/apache/apache.conf > \
-		/etc/apache/apache.conf.tmp
-	mv -f /etc/apache/apache.conf.tmp /etc/apache/apache.conf
 	if [ -f /var/lock/subsys/apache ]; then
 		/etc/rc.d/init.d/apache restart 1>&2
 	fi
 fi
 
+%triggerpostun -- %{name} < 1.0.2-1.1
+if grep -q '^Include conf\.d' /etc/apache/apache.conf; then
+	%{apxs} -e -A -n %{mod_name} %{_pkglibdir}/mod_%{mod_name}.so 1>&2
+	sed -i -e '
+		/^Include.*mod_%{mod_name}\.conf/d
+	' /etc/apache/apache.conf
+else
+	# they're still using old apache.conf
+	sed -i -e '
+		s,^Include.*mod_%{mod_name}\.conf,Include %{_sysconfdir}/conf.d/*_mod_%{mod_name}.conf,
+	' /etc/apache/apache.conf
+fi
+if [ -f /var/lock/subsys/apache ]; then
+	/etc/rc.d/init.d/apache restart 1>&2
+fi
+
 %files
 %defattr(644,root,root,755)
 %doc CHANGES INSTALL LICENSE README
-%attr(755,root,root) %{_pkglibdir}/mod_roaming.so
-%attr(660,root,http) %dir %{_var}/lib/mod_roaming
-%config(noreplace) %{_sysconfdir}/apache/mod_roaming.conf
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/conf.d/*_mod_%{mod_name}.conf
+%attr(755,root,root) %{_pkglibdir}/*
+%attr(770,root,http) %dir %{_var}/lib/mod_roaming
