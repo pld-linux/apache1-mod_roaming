@@ -19,6 +19,7 @@ Release:	6
 License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://www.klomp.org/mod_roaming/mod_%{mod_name}-%{version}.tar.gz
+# Source0-md5:	226c0ce2daf276072079590b5560f022
 Source1:	%{name}.conf
 URL:		http://www.klomp.org/mod_roaming/
 BuildRequires:	apache(EAPI)-devel
