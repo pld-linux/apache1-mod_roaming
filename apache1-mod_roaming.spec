@@ -8,10 +8,9 @@ Summary(no):	En apachemodul som lar webtjeneren håndtere profiler for Netscape C
 Summary(pl):	Modu³ Apache obs³uguj±cy przechodnie profile Netscape Communicatora
 Summary(sk):	WWW prehliadaè Netscape Navigator
 Summary(sv):	Möjliggör Netscape Communicator reseprofiler med Apache
-Summary():	
 Name:		mod_roaming
 Version:	1.0.2
-Release:	4
+Release:	5
 License:	BSD type
 Group:		Networking/Daemons
 Group(cs):	Sí»ové/Démoni
