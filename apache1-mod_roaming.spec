@@ -11,7 +11,7 @@ Summary(sk):	WWW prehliadaè Netscape Navigator
 Summary(sv):	Möjliggör Netscape Communicator reseprofiler med Apache
 Name:		mod_roaming
 Version:	1.0.2
-Release:	5
+Release:	6
 License:	BSD type
 Group:		Networking/Daemons
 Group(cs):	Sí»ové/Démoni
