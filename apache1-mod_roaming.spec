@@ -17,7 +17,7 @@ Summary(sk):	WWW prehliadaè Netscape Navigator
 Summary(sv):	Möjliggör Netscape Communicator reseprofiler med Apache
 Name:		apache1-mod_%{mod_name}
 Version:	1.0.2
-Release:	1.3
+Release:	2
 License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://www.klomp.org/mod_roaming/mod_%{mod_name}-%{version}.tar.gz
