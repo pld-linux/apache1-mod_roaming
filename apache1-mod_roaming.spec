@@ -1,6 +1,5 @@
-%define 	apxs		/usr/sbin/apxs
 %define		mod_name	roaming
-
+%define 	apxs		/usr/sbin/apxs1
 Summary:	Enables Netscape Communicator roaming profiles with Apache
 Summary(cs):	Modul podpory roamingových profilù Netscape Communicatora pro Apache
 Summary(da):	Et apachemodul som lader webtjeneren håndtere profiler for Netscape Communicator
@@ -13,9 +12,9 @@ Summary(pl):	Modu³ Apache obs³uguj±cy przechodnie profile Netscape Communicatora
 Summary(pt_BR):	Modulo "Netscape Roaming Access" para o Apache
 Summary(sk):	WWW prehliadaè Netscape Navigator
 Summary(sv):	Möjliggör Netscape Communicator reseprofiler med Apache
-Name:		apache-mod_%{mod_name}
+Name:		apache1-mod_%{mod_name}
 Version:	1.0.2
-Release:	6
+Release:	1
 License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://www.klomp.org/mod_roaming/mod_%{mod_name}-%{version}.tar.gz
@@ -23,14 +22,15 @@ Source0:	http://www.klomp.org/mod_roaming/mod_%{mod_name}-%{version}.tar.gz
 Source1:	%{name}.conf
 URL:		http://www.klomp.org/mod_roaming/
 BuildRequires:	%{apxs}
-BuildRequires:	apache(EAPI)-devel
+BuildRequires:	apache1-devel
 Requires(post,preun):	%{apxs}
 Requires(post,preun):	grep
 Requires(preun):	fileutils
-Requires:	apache(EAPI)
-Provides:	mod_roaming
+Requires:	apache1
+Obsoletes:	apache-mod_roaming <= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Obsoletes:	mod_roaming
+
+%define		_pkglibdir	%(%{apxs} -q LIBEXECDIR)
 
 %description
 With mod_roaming you can use your Apache web server as a Netscape
@@ -117,38 +117,38 @@ Netscape Communicator 4.5 som kan komma åt servern.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_libdir}/apache,%{_sysconfdir}/httpd,%{_var}/lib/mod_roaming}
+install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/apache,%{_var}/lib/mod_roaming}
 
-install mod_%{mod_name}.so $RPM_BUILD_ROOT%{_libdir}/apache
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/mod_roaming.conf
+install mod_%{mod_name}.so $RPM_BUILD_ROOT%{_pkglibdir}
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache/mod_roaming.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
 %{apxs} -e -a -n %{mod_name} %{_pkglibdir}/mod_%{mod_name}.so 1>&2
-if [ -f /etc/httpd/httpd.conf ] && ! grep -q "^Include.*mod_%{mod_name}.conf" /etc/httpd/httpd.conf; then
-	echo "Include /etc/httpd/mod_%{mod_name}.conf" >> /etc/httpd/httpd.conf
+if [ -f /etc/apache/apache.conf ] && ! grep -q "^Include.*mod_%{mod_name}.conf" /etc/apache/apache.conf; then
+	echo "Include /etc/apache/mod_%{mod_name}.conf" >> /etc/apache/apache.conf
 fi
-if [ -f /var/lock/subsys/httpd ]; then
-	/etc/rc.d/init.d/httpd restart 1>&2
+if [ -f /var/lock/subsys/apache ]; then
+	/etc/rc.d/init.d/apache restart 1>&2
 fi
 
 %preun
 if [ "$1" = "0" ]; then
 	%{apxs} -e -A -n %{mod_name} %{_pkglibdir}/mod_%{mod_name}.so 1>&2
 	umask 027
-	grep -v "^Include.*mod_%{mod_name}.conf" /etc/httpd/httpd.conf > \
-		/etc/httpd/httpd.conf.tmp
-	mv -f /etc/httpd/httpd.conf.tmp /etc/httpd/httpd.conf
-	if [ -f /var/lock/subsys/httpd ]; then
-		/etc/rc.d/init.d/httpd restart 1>&2
+	grep -v "^Include.*mod_%{mod_name}.conf" /etc/apache/apache.conf > \
+		/etc/apache/apache.conf.tmp
+	mv -f /etc/apache/apache.conf.tmp /etc/apache/apache.conf
+	if [ -f /var/lock/subsys/apache ]; then
+		/etc/rc.d/init.d/apache restart 1>&2
 	fi
 fi
 
 %files
 %defattr(644,root,root,755)
 %doc CHANGES INSTALL LICENSE README
-%attr(755,root,root) %{_libdir}/apache/mod_roaming.so
+%attr(755,root,root) %{_pkglibdir}/mod_roaming.so
 %attr(660,root,http) %dir %{_var}/lib/mod_roaming
-%config(noreplace) %{_sysconfdir}/httpd/mod_roaming.conf
+%config(noreplace) %{_sysconfdir}/apache/mod_roaming.conf
