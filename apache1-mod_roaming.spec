@@ -1,26 +1,33 @@
-%define 	apxs	/usr/sbin/apxs
+%define 	apxs		/usr/sbin/apxs
+%define		mod_name	roaming
+
 Summary:	Enables Netscape Communicator roaming profiles with Apache
 Summary(cs):	Modul podpory roamingových profilù Netscape Communicatora pro Apache
 Summary(da):	Et apachemodul som lader webtjeneren håndtere profiler for Netscape Communicator
 Summary(de):	Aktiviert den Netscape Communicator für das Profilroaming mit Apache
+Summary(es):	Módulo de acceso roaming para navegación en red para Apache
 Summary(fr):	Permet l'itinérance de profils Netscape Communicator avec Apache
 Summary(it):	Abilita i profili di roaming di Netscape Communicator con Apache
 Summary(no):	En apachemodul som lar webtjeneren håndtere profiler for Netscape Communicator
 Summary(pl):	Modu³ Apache obs³uguj±cy przechodnie profile Netscape Communicatora
+Summary(pt_BR):	Modulo "Netscape Roaming Access" para o Apache
 Summary(sk):	WWW prehliadaè Netscape Navigator
 Summary(sv):	Möjliggör Netscape Communicator reseprofiler med Apache
-Name:		mod_roaming
+Name:		apache-mod_%{mod_name}
 Version:	1.0.2
 Release:	6
 License:	BSD-like
 Group:		Networking/Daemons
-Source0:	http://www.klomp.org/mod_roaming/%{name}-%{version}.tar.gz
-Source1:	roaming.conf
+Source0:	http://www.klomp.org/mod_roaming/mod_%{mod_name}-%{version}.tar.gz
+Source1:	%{name}.conf
 URL:		http://www.klomp.org/mod_roaming/
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-BuildRequires:	apache-devel
+BuildRequires:	apache(EAPI)-devel
 BuildRequires:	%{apxs}
-Requires:	webserver
+Requires:	apache(EAPI)
+Provides:	mod_roaming
+Prereq:		%{apxs}
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	mod_roaming
 
 %description
 With mod_roaming you can use your Apache web server as a Netscape
@@ -84,6 +91,14 @@ serwerze, dziêki czemu mo¿esz u¿ywaæ (i uaktualniaæ) tych samych
 ustawieñ z dowolnego Netscape Communicatora >= 4.5, który ma dostêp do
 serwera.
 
+%description -l pt_BR
+Com o mod_roaming você pode usar o Apache como um servidor de "Roaming
+Access" para o Netscape. Isto permite que você armazene preferências,
+bookmarks, livros de acessos, cookies, etc, do Netscape Communicator
+4.5 no servidor, sendo que com isso, você pode usar as mesmas
+configurações para qualquer Netscape 4.5 que possa acessar este
+servidor.
+
 %description -l sv
 Med mod_roaming kan du använda din webbserver Apache som en server för
 Netscape reseprofiler. Detta låter dig lagra dina Netscape
@@ -92,7 +107,7 @@ servern så att du kan använda (och ändra) inställningarna från valfri
 Netscape Communicator 4.5 som kan komma åt servern.
 
 %prep
-%setup -q
+%setup -q -n mod_%{mod_name}-%{version}
 
 %build
 %{apxs} -c -o mod_roaming.so -lc mod_roaming.c
@@ -101,17 +116,35 @@ Netscape Communicator 4.5 som kan komma åt servern.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_libdir}/apache,%{_sysconfdir}/httpd,%{_var}/lib/mod_roaming}
 
-install mod_roaming.so $RPM_BUILD_ROOT%{_libdir}/apache
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd
-
-gzip -9nf CHANGES INSTALL LICENSE README
+install mod_%{mod_name}.so $RPM_BUILD_ROOT%{_libdir}/apache
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/mod_roaming.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+%{_sbindir}/apxs -e -a -n %{mod_name} %{_pkglibdir}/mod_%{mod_name}.so 1>&2
+if [ -f /etc/httpd/httpd.conf ] && ! grep -q "^Include.*mod_%{mod_name}.conf" /etc/httpd/httpd.conf; then
+	echo "Include /etc/httpd/mod_%{mod_name}.conf" >> /etc/httpd/httpd.conf
+fi
+if [ -f /var/lock/subsys/httpd ]; then
+	%{_sysconfdir}/rc.d/init.d/httpd restart 1>&2
+fi
+
+%preun
+if [ "$1" = "0" ]; then
+	%{_sbindir}/apxs -e -A -n %{mod_name} %{_pkglibdir}/mod_%{mod_name}.so 1>&2
+	grep -v "^Include.*mod_%{mod_name}.conf" /etc/httpd/httpd.conf > \
+		/etc/httpd/httpd.conf.tmp
+	mv -f /etc/httpd/httpd.conf.tmp /etc/httpd/httpd.conf
+	if [ -f /var/lock/subsys/httpd ]; then
+		/etc/rc.d/init.d/httpd restart 1>&2
+	fi
+fi
+
 %files
 %defattr(644,root,root,755)
-%doc CHANGES* INSTALL* LICENSE* README*
+%doc CHANGES INSTALL LICENSE README
 %attr(755,root,root) %{_libdir}/apache/mod_roaming.so
 %attr(660,root,http) %dir %{_var}/lib/mod_roaming
-%config %{_sysconfdir}/httpd/roaming.conf
+%config(noreplace) %{_sysconfdir}/httpd/mod_roaming.conf
