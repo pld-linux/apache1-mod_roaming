@@ -8,7 +8,7 @@ Summary(de):	Aktiviert den Netscape Communicator für das Profilroaming mit Apach
 Summary(es):	Módulo de acceso roaming para navegación en red para Apache
 Summary(fr):	Permet l'itinérance de profils Netscape Communicator avec Apache
 Summary(it):	Abilita i profili di roaming di Netscape Communicator con Apache
-Summary(no):	En apachemodul som lar webtjeneren håndtere profiler for Netscape Communicator
+Summary(nb):	En apachemodul som lar webtjeneren håndtere profiler for Netscape Communicator
 Summary(pl):	Modu³ Apache obs³uguj±cy przechodnie profile Netscape Communicatora
 Summary(pt_BR):	Modulo "Netscape Roaming Access" para o Apache
 Summary(sk):	WWW prehliadaè Netscape Navigator
