@@ -12,7 +12,7 @@ Summary(sv):	Möjliggör Netscape Communicator reseprofiler med Apache
 Name:		mod_roaming
 Version:	1.0.2
 Release:	6
-License:	BSD type
+License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://www.klomp.org/mod_roaming/%{name}-%{version}.tar.gz
 Source1:	roaming.conf
