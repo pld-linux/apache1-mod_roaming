@@ -22,15 +22,15 @@ Source0:	http://www.klomp.org/mod_roaming/mod_%{mod_name}-%{version}.tar.gz
 # Source0-md5:	226c0ce2daf276072079590b5560f022
 Source1:	%{name}.conf
 URL:		http://www.klomp.org/mod_roaming/
-BuildRequires:	apache(EAPI)-devel
 BuildRequires:	%{apxs}
+BuildRequires:	apache(EAPI)-devel
 Requires(post,preun):	%{apxs}
 Requires(post,preun):	grep
 Requires(preun):	fileutils
 Requires:	apache(EAPI)
 Provides:	mod_roaming
-Obsoletes:	mod_roaming
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	mod_roaming
 
 %description
 With mod_roaming you can use your Apache web server as a Netscape
