@@ -1,3 +1,4 @@
+%define 	apxs	/usr/sbin/apxs
 Summary:	Enables Netscape Communicator roaming profiles with Apache
 Summary(cs):	Modul podpory roamingových profilù Netscape Communicatora pro Apache
 Summary(da):	Et apachemodul som lader webtjeneren håndtere profiler for Netscape Communicator
@@ -32,6 +33,7 @@ Source1:	roaming.conf
 URL:		http://www.klomp.org/mod_roaming/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	apache-devel
+BuildRequires:	%{apxs}
 Requires:	webserver
 
 %description
@@ -107,7 +109,7 @@ Netscape Communicator 4.5 som kan komma åt servern.
 %setup -q
 
 %build
-%{_sbindir}/apxs -c -o mod_roaming.so -lc mod_roaming.c
+%{apxs} -c -o mod_roaming.so -lc mod_roaming.c
 
 %install
 rm -rf $RPM_BUILD_ROOT
