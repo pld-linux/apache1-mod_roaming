@@ -30,7 +30,7 @@ Requires(triggerpostun):	%{apxs}
 Requires(triggerpostun):	grep
 Requires(triggerpostun):	sed >= 4.0
 Requires:	apache1 >= 1.3.33-2
-Obsoletes:	apache-mod_roaming <= %{version}
+Obsoletes:	apache-mod_roaming <= 1.0.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_pkglibdir	%(%{apxs} -q LIBEXECDIR 2>/dev/null)
