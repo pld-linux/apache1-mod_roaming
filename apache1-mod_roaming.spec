@@ -26,6 +26,7 @@ Source1:	%{name}.conf
 URL:		http://www.klomp.org/mod_roaming/
 BuildRequires:	%{apxs}
 BuildRequires:	apache1-devel >= 1.3.33-2
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(triggerpostun):	%{apxs}
 Requires(triggerpostun):	grep
 Requires(triggerpostun):	sed >= 4.0
@@ -130,15 +131,11 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/conf.d/90_mod_%{mod_name}.conf
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ -f /var/lock/subsys/apache ]; then
-	/etc/rc.d/init.d/apache restart 1>&2
-fi
+%service -q apache restart
 
 %postun
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/apache ]; then
-		/etc/rc.d/init.d/apache restart 1>&2
-	fi
+	%service -q apache restart
 fi
 
 %triggerpostun -- %{name} < 1.0.2-1.1
@@ -153,9 +150,7 @@ else
 		s,^Include.*mod_%{mod_name}\.conf,Include %{_sysconfdir}/conf.d/*_mod_%{mod_name}.conf,
 	' /etc/apache/apache.conf
 fi
-if [ -f /var/lock/subsys/apache ]; then
-	/etc/rc.d/init.d/apache restart 1>&2
-fi
+%service -q apache restart
 
 %files
 %defattr(644,root,root,755)
