@@ -4,17 +4,17 @@
 %define		mod_name	roaming
 %define 	apxs		/usr/sbin/apxs1
 Summary:	Enables Netscape Communicator roaming profiles with Apache
-Summary(cs):	Modul podpory roamingovıch profilù Netscape Communicatora pro Apache
-Summary(da):	Et apachemodul som lader webtjeneren håndtere profiler for Netscape Communicator
-Summary(de):	Aktiviert den Netscape Communicator für das Profilroaming mit Apache
-Summary(es):	Módulo de acceso roaming para navegación en red para Apache
-Summary(fr):	Permet l'itinérance de profils Netscape Communicator avec Apache
-Summary(it):	Abilita i profili di roaming di Netscape Communicator con Apache
-Summary(nb):	En apachemodul som lar webtjeneren håndtere profiler for Netscape Communicator
-Summary(pl):	Modu³ Apache obs³uguj±cy przechodnie profile Netscape Communicatora
-Summary(pt_BR):	Modulo "Netscape Roaming Access" para o Apache
-Summary(sk):	WWW prehliadaè Netscape Navigator
-Summary(sv):	Möjliggör Netscape Communicator reseprofiler med Apache
+Summary(cs.UTF-8):   Modul podpory roamingovÃ½ch profilÅ¯ Netscape Communicatora pro Apache
+Summary(da.UTF-8):   Et apachemodul som lader webtjeneren hÃ¥ndtere profiler for Netscape Communicator
+Summary(de.UTF-8):   Aktiviert den Netscape Communicator fÃ¼r das Profilroaming mit Apache
+Summary(es.UTF-8):   MÃ³dulo de acceso roaming para navegaciÃ³n en red para Apache
+Summary(fr.UTF-8):   Permet l'itinÃ©rance de profils Netscape Communicator avec Apache
+Summary(it.UTF-8):   Abilita i profili di roaming di Netscape Communicator con Apache
+Summary(nb.UTF-8):   En apachemodul som lar webtjeneren hÃ¥ndtere profiler for Netscape Communicator
+Summary(pl.UTF-8):   ModuÅ‚ Apache obsÅ‚ugujÄ…cy przechodnie profile Netscape Communicatora
+Summary(pt_BR.UTF-8):   Modulo "Netscape Roaming Access" para o Apache
+Summary(sk.UTF-8):   WWW prehliadaÄ Netscape Navigator
+Summary(sv.UTF-8):   MÃ¶jliggÃ¶r Netscape Communicator reseprofiler med Apache
 Name:		apache1-mod_%{mod_name}
 Version:	1.0.2
 Release:	3
@@ -44,22 +44,22 @@ Communicator 4.5 preferences, bookmarks, address books, cookies etc.
 on the server so that you can use (and update) the same settings from
 any Netscape Communicator 4.5 that can access the server.
 
-%description -l cs
-Balíèek mod_roaming obsahuje modul pro podporu roamingovıch profilù
-Netscape Communicatora pro Apache. Profily umo¾òují ulo¾it nastavení
-Netscape 4.5 (bookmarky, adresáø, cookies, nastavení Netacspe apod.)
-na server, tak¾e pøi spu¹tìní Netscape z libovolného místa na
-Internetu budete mít stejné nastavení.
+%description -l cs.UTF-8
+BalÃ­Äek mod_roaming obsahuje modul pro podporu roamingovÃ½ch profilÅ¯
+Netscape Communicatora pro Apache. Profily umoÅ¾ÅˆujÃ­ uloÅ¾it nastavenÃ­
+Netscape 4.5 (bookmarky, adresÃ¡Å™, cookies, nastavenÃ­ Netacspe apod.)
+na server, takÅ¾e pÅ™i spuÅ¡tÄ›nÃ­ Netscape z libovolnÃ©ho mÃ­sta na
+Internetu budete mÃ­t stejnÃ© nastavenÃ­.
 
-%description -l de
-Mit mo_roaming können Sie Ihren Apache Web-Server als
-Netscape-Roaming- Zugriffsserver verwenden. Auf diese Weise können Sie
-Ihre Präferenzen für Netscape Communicator 4.5, Lesezeichen,
-Adressbücher, Cookies etc. auf dem Server speichern, so dass Sie die
+%description -l de.UTF-8
+Mit mo_roaming kÃ¶nnen Sie Ihren Apache Web-Server als
+Netscape-Roaming- Zugriffsserver verwenden. Auf diese Weise kÃ¶nnen Sie
+Ihre PrÃ¤ferenzen fÃ¼r Netscape Communicator 4.5, Lesezeichen,
+AdressbÃ¼cher, Cookies etc. auf dem Server speichern, so dass Sie die
 gleichen Einstellungen von jedem Netscape Communicator 4.5 verwenden
-(und aktualisieren) können, die Zugriff auf den Server haben.
+(und aktualisieren) kÃ¶nnen, die Zugriff auf den Server haben.
 
-%description -l es
+%description -l es.UTF-8
 Con mod_roaming puede utilizar su servidor web apache como un servidor
 Netscape Roaming Access. Esto le permite almacenar las preferencias de
 su Netscape Communicator 4.5, los bookmarks, libros de direcciones,
@@ -67,52 +67,52 @@ cookies, etc. en el servidor de tal forma que puede utilizar (y
 actualizar) las mismas opciones desde cualquier Netscape Communicator
 4.5 que acceda al servidor.
 
-%description -l fr
+%description -l fr.UTF-8
 Mod_roaming vous permet d'utiliser le serveur Web Apache en tant que
-Netscape pour accéder à un serveur Access. Cela vous permet de stocker
-vos préférences Netscape Communicator 4.5, signets, carnets
+Netscape pour accÃ©der Ã  un serveur Access. Cela vous permet de stocker
+vos prÃ©fÃ©rences Netscape Communicator 4.5, signets, carnets
 d'adresses, cookies, etc. sur le serveur afin d'utiliser (et de mettre
-à jour) les mêmes réglages depuis n'importe quel Netscapte
-Communicator 4.5 ayant accès au serveur.
+Ã  jour) les mÃªmes rÃ©glages depuis n'importe quel Netscapte
+Communicator 4.5 ayant accÃ¨s au serveur.
 
-%description -l it
-Grazie a mod_roaming è possibile utilizzare il server Web Apache come
+%description -l it.UTF-8
+Grazie a mod_roaming Ã¨ possibile utilizzare il server Web Apache come
 un server Netscape Roaming Access. Questo consente di memorizzare le
-preferenze, i segnalibri, le rubriche i cookie (e così via) di
+preferenze, i segnalibri, le rubriche i cookie (e cosÃ¬ via) di
 Netscape Communicator 4.5 sul server, in modo da poter usare (e
 aggiornare) le stesse impostazioni da qualsiasi Netscape Communicator
 4.5 che possa accedere al server.
 
-%description -l ja
-mod_roaming ¤ò»ÈÍÑ¤¹¤ë¤È¡¢Apache Web ¥µ¡¼¥Ğ¡¼¤ò Netscape Roaming
-Access ¥µ¡¼¥Ğ¡¼¤È¤·¤Æ»ÈÍÑ¤Ç¤­¤Ş¤¹¡£¤³¤ì¤Ë¤è¤Ã¤Æ Netscape Communicator
-4.5 ¤Î¤ªµ¤¤ËÆş¤ê¡¢¥Ö¥Ã¥¯¥Ş¡¼¥¯¡¢¥¢¥É¥ì¥¹
-¥Ö¥Ã¥¯¡¢¥¯¥Ã¥­¡¼¤Ê¤É¤ò¥µ¡¼¥Ğ¡¼¾å¤Ë³ÊÇ¼¤Ç¤­¡¢¥µ¡¼¥Ğ¡¼¤Ë¥¢¥¯¥»¥¹¤Ç¤­¤ë¤É¤Î
-¤Î Netscape Communicator 4.5 ¤«¤é¤Ç¤âÆ±¤¸ÀßÄê¤ò»ÈÍÑ (¤ª¤è¤Ó¹¹¿·)
-¤Ç¤­¤ë ¤è¤¦¤Ë¤Ê¤ê¤Ş¤¹¡£
+%description -l ja.UTF-8
+mod_roaming ã‚’ä½¿ç”¨ã™ã‚‹ã¨ã€Apache Web ã‚µãƒ¼ãƒãƒ¼ã‚’ Netscape Roaming
+Access ã‚µãƒ¼ãƒãƒ¼ã¨ã—ã¦ä½¿ç”¨ã§ãã¾ã™ã€‚ã“ã‚Œã«ã‚ˆã£ã¦ Netscape Communicator
+4.5 ã®ãŠæ°—ã«å…¥ã‚Šã€ãƒ–ãƒƒã‚¯ãƒãƒ¼ã‚¯ã€ã‚¢ãƒ‰ãƒ¬ã‚¹
+ãƒ–ãƒƒã‚¯ã€ã‚¯ãƒƒã‚­ãƒ¼ãªã©ã‚’ã‚µãƒ¼ãƒãƒ¼ä¸Šã«æ ¼ç´ã§ãã€ã‚µãƒ¼ãƒãƒ¼ã«ã‚¢ã‚¯ã‚»ã‚¹ã§ãã‚‹ã©ã®
+ã® Netscape Communicator 4.5 ã‹ã‚‰ã§ã‚‚åŒã˜è¨­å®šã‚’ä½¿ç”¨ (ãŠã‚ˆã³æ›´æ–°)
+ã§ãã‚‹ ã‚ˆã†ã«ãªã‚Šã¾ã™ã€‚
 
-%description -l pl
-Dziêki mod_roaming mo¿esz u¿ywaæ serwera Apache jako serwera Netscape
-Roaming Access. Pozwala to na zapisywanie ustawieñ, bookmarków,
-ksi±¿ek adresowych, cookie z Netscape Communicatora >= 4.5 na
-serwerze, dziêki czemu mo¿esz u¿ywaæ (i uaktualniaæ) tych samych
-ustawieñ z dowolnego Netscape Communicatora >= 4.5, który ma dostêp do
+%description -l pl.UTF-8
+DziÄ™ki mod_roaming moÅ¼esz uÅ¼ywaÄ‡ serwera Apache jako serwera Netscape
+Roaming Access. Pozwala to na zapisywanie ustawieÅ„, bookmarkÃ³w,
+ksiÄ…Å¼ek adresowych, cookie z Netscape Communicatora >= 4.5 na
+serwerze, dziÄ™ki czemu moÅ¼esz uÅ¼ywaÄ‡ (i uaktualniaÄ‡) tych samych
+ustawieÅ„ z dowolnego Netscape Communicatora >= 4.5, ktÃ³ry ma dostÄ™p do
 serwera.
 
-%description -l pt_BR
-Com o mod_roaming você pode usar o Apache como um servidor de "Roaming
-Access" para o Netscape. Isto permite que você armazene preferências,
+%description -l pt_BR.UTF-8
+Com o mod_roaming vocÃª pode usar o Apache como um servidor de "Roaming
+Access" para o Netscape. Isto permite que vocÃª armazene preferÃªncias,
 bookmarks, livros de acessos, cookies, etc, do Netscape Communicator
-4.5 no servidor, sendo que com isso, você pode usar as mesmas
-configurações para qualquer Netscape 4.5 que possa acessar este
+4.5 no servidor, sendo que com isso, vocÃª pode usar as mesmas
+configuraÃ§Ãµes para qualquer Netscape 4.5 que possa acessar este
 servidor.
 
-%description -l sv
-Med mod_roaming kan du använda din webbserver Apache som en server för
-Netscape reseprofiler. Detta låter dig lagra dina Netscape
-Communicator 4.5 preferenser, bokmärken, adressbok, kakor, etc. på
-servern så att du kan använda (och ändra) inställningarna från valfri
-Netscape Communicator 4.5 som kan komma åt servern.
+%description -l sv.UTF-8
+Med mod_roaming kan du anvÃ¤nda din webbserver Apache som en server fÃ¶r
+Netscape reseprofiler. Detta lÃ¥ter dig lagra dina Netscape
+Communicator 4.5 preferenser, bokmÃ¤rken, adressbok, kakor, etc. pÃ¥
+servern sÃ¥ att du kan anvÃ¤nda (och Ã¤ndra) instÃ¤llningarna frÃ¥n valfri
+Netscape Communicator 4.5 som kan komma Ã¥t servern.
 
 %prep
 %setup -q -n mod_%{mod_name}-%{version}
