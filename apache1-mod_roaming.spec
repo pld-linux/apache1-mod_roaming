@@ -4,17 +4,17 @@
 %define		mod_name	roaming
 %define 	apxs		/usr/sbin/apxs1
 Summary:	Enables Netscape Communicator roaming profiles with Apache
-Summary(cs.UTF-8):   Modul podpory roamingových profilů Netscape Communicatora pro Apache
-Summary(da.UTF-8):   Et apachemodul som lader webtjeneren håndtere profiler for Netscape Communicator
-Summary(de.UTF-8):   Aktiviert den Netscape Communicator für das Profilroaming mit Apache
-Summary(es.UTF-8):   Módulo de acceso roaming para navegación en red para Apache
-Summary(fr.UTF-8):   Permet l'itinérance de profils Netscape Communicator avec Apache
-Summary(it.UTF-8):   Abilita i profili di roaming di Netscape Communicator con Apache
-Summary(nb.UTF-8):   En apachemodul som lar webtjeneren håndtere profiler for Netscape Communicator
-Summary(pl.UTF-8):   Moduł Apache obsługujący przechodnie profile Netscape Communicatora
-Summary(pt_BR.UTF-8):   Modulo "Netscape Roaming Access" para o Apache
-Summary(sk.UTF-8):   WWW prehliadač Netscape Navigator
-Summary(sv.UTF-8):   Möjliggör Netscape Communicator reseprofiler med Apache
+Summary(cs.UTF-8):	Modul podpory roamingových profilů Netscape Communicatora pro Apache
+Summary(da.UTF-8):	Et apachemodul som lader webtjeneren håndtere profiler for Netscape Communicator
+Summary(de.UTF-8):	Aktiviert den Netscape Communicator für das Profilroaming mit Apache
+Summary(es.UTF-8):	Módulo de acceso roaming para navegación en red para Apache
+Summary(fr.UTF-8):	Permet l'itinérance de profils Netscape Communicator avec Apache
+Summary(it.UTF-8):	Abilita i profili di roaming di Netscape Communicator con Apache
+Summary(nb.UTF-8):	En apachemodul som lar webtjeneren håndtere profiler for Netscape Communicator
+Summary(pl.UTF-8):	Moduł Apache obsługujący przechodnie profile Netscape Communicatora
+Summary(pt_BR.UTF-8):	Modulo "Netscape Roaming Access" para o Apache
+Summary(sk.UTF-8):	WWW prehliadač Netscape Navigator
+Summary(sv.UTF-8):	Möjliggör Netscape Communicator reseprofiler med Apache
 Name:		apache1-mod_%{mod_name}
 Version:	1.0.2
 Release:	3
